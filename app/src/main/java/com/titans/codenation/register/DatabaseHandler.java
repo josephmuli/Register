@@ -18,12 +18,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String PERSON_COLUMN_GENDER = "gender";
     public static final String PERSON_COLUMN_AGE = "age";
 
+
+
+    //constructor
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        //where each table schema is specified, where new db is created.
+        db.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + "("
+                + PERSON_COLUMN_ID + INTEGER  PRIMARY KEY, "" +
+                "P" ); PERSON_COLUMN_NAME + "TEXT, " + PERSON_COLUMN_NAME
+                + "TEXT, " + PERSON_COLUMN_GENDER = "TEXT, " +
+                PERSON_COLUMN_AGE + "INTEGER)"
+        );
 
     }
 
