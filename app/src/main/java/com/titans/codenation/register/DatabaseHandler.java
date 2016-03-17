@@ -2,6 +2,7 @@ package com.titans.codenation.register;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -64,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(PERSON_COLUMN_GENDER, gender);
         contentValues.put(PERSON_COLUMN_AGE, age);
 
-        //calling the handler constructor
+        //calling the DBhandler constructor
         db.insert(PERSON_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -81,4 +82,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    //for the view, I implement two methods; one to view a single person, another
+    // to display a number of people.
+    //Since in this case we're not writing to the db, we retreive a readable db with getReadableDatabase()
+    //and perform a rawQuery(). Raw query takes a SQL query string, with optional queryArgs
+    //and returns a Cursor object. A cursor will provide access to the result set
+    //returned. It also provides methods to reteive particular columns, total columns, total rows...
+
+    //for an individual
+    public Cursor getPerson(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + PERSON_TABLE_NAME + " WHERE "+
+        PERSON_COLUMN_ID + "=?", new String[] {Integer.toString(id)});
+
+        return res;
+    }
+
+    // method to get all people in the database.
+    public Cursor getAllPersons(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM "+ PERSON_TABLE_NAME, null);
+        return res;
+    }
+
+
+    //Deleting data is also pretty straightforward. the delete()
+    //method takes the table name to delete from,and optional whereClause and whereArgs.
+
+
+    public Integer deletePerson(Integer id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(PERSON_TABLE_NAME,
+                PERSON_COLUMN_ID + " = ? ",
+                new String[]{Integer.toString(id)}
+                );
+    }
 }
