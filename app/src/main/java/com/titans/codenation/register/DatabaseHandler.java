@@ -69,4 +69,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean updatePerson(Integer id, String name, String gender, int age){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PERSON_COLUMN_NAME, name);
+        contentValues.put(PERSON_COLUMN_GENDER, gender);
+        contentValues.put(PERSON_COLUMN_AGE, age);
+
+        db.update(PERSON_TABLE_NAME, contentValues, PERSON_COLUMN_ID + " = ?", new String[]{
+                Integer.toString(id)});
+        return true;
+    }
+
 }
