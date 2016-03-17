@@ -26,20 +26,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
+//declaring the table schema
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        //where each table schema is specified, where new db is created.
-        db.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + "("
-                + PERSON_COLUMN_ID + INTEGER  PRIMARY KEY, "" +
-                "P" ); PERSON_COLUMN_NAME + "TEXT, " + PERSON_COLUMN_NAME
-                + "TEXT, " + PERSON_COLUMN_GENDER = "TEXT, " +
-                PERSON_COLUMN_AGE + "INTEGER)"
+        db.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + "(" +
+                        PERSON_COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                        PERSON_COLUMN_NAME + " TEXT, " +
+                        PERSON_COLUMN_GENDER + " TEXT, " +
+                        PERSON_COLUMN_AGE + " INTEGER)"
         );
-
     }
 
+    //this method is called when the db needs to be upgraded(possibly due to version change)
+    //here one drops/ adds tables
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + PERSON_TABLE_NAME);
