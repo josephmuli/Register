@@ -39,6 +39,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         );
     }
 
+
+
     //this method is called when the db needs to be upgraded(possibly due to version change)
     //here one drops/adds tables or migrate  data into a new tables or basically whatever needs to be done
     //to move from the previous schema to a new schema. Here I basically drop the table
@@ -58,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //adding a person
 
-    public boolean addPerson(String name, String gender, int age){
+    public boolean addPerson(String name, String gender, String age){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(PERSON_COLUMN_NAME, name);
